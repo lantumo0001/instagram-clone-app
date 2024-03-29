@@ -35,7 +35,7 @@ function PostFooter(){
     <Text fontSize={'sm'} color = {'gray'}>view all 1000 comments </Text>
     <Flex alignItems={'center'} gap={2} justifyContent={'space-between'} w='full'>
      <InputGroup>
-       <Input variant='flushed' placeHolder={'add a comment...'} fontSize={14}/>
+       <Input variant='flushed' placeholder={'add a comment...'} fontSize={14}/>
        <InputRightElement width={4}>
        <Button fontWeight={600} fontSize={14} _hover={{color:'white'}} bg={'transparent'} color={'blue.500'} >post</Button>
        </InputRightElement>

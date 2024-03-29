@@ -8,6 +8,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 // import application
 import App from "./App";
 import HomePage from "./pages/HomePage/HomePage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import AuthPage from "./pages/AuthPage/AuthPage"
 import PageLayout from "./Layouts/pagelayout/PageLayout"
 // import router 
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
   {
     path: '/auth',
     element: <AuthPage />,
+  },
+  {
+    path:'/:username',
+    element: <ProfilePage />,
   }
 ])
 ReactDOM.createRoot(document.getElementById("root")).render(
