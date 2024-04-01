@@ -12,6 +12,7 @@ import {
 import { Divider } from "@chakra-ui/react";
 import { AiOutlineHeart, AiFillMessage, AiFillHeart } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
+import PostFooter from '../FeedPosts/PostFooter'
 import {
   Modal,
   ModalOverlay,
@@ -153,6 +154,7 @@ function ProfilePost({ img }) {
                   />
                 </VStack>
                 <Divider my={4} bg={'gray.800'}/>
+                <PostFooter isProfilePage={true}/>
               </Flex>
             </Flex>
           </ModalBody>

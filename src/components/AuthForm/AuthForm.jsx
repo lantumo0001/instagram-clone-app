@@ -11,7 +11,9 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { useNavigate} from "react-router-dom";
+import Login from './Login';
+import  Signup from './Signup';
+import GoogleAuth from './GoogleAuth'
 function AuthForm() {
   const [isLogin, setIsLogin] = useState(true);
   const [inputs, setInputs] = useState({
@@ -19,56 +21,18 @@ function AuthForm() {
     password: "",
     confirmPassword: "",
   });
-  const navigate = useNavigate();
-  function handleAuth() {
-    if(!inputs.password || !inputs.email){
-      alert(inputs.password && inputs.email ? "Please fill in all fields" : "Please fill in all fields");
-      return
-    }else{
-      navigate('/')
-    }
-    
-  }
 
   return (
     <>
       <Box border={"1px solid gray"} borderRadius={4} padding={5}>
-        <Image h={44} cursor={"pointer"} src="/logo.png" alt="instagram logo" />
-
         <VStack spacing={4}>
-          <Input
-            placeHolder={"Email"}
-            fontSize={14}
-            type="email"
-            value={inputs.email}
-            onChange={(e) => setInputs({ ...inputs, email: e.target.value })}
+          <Image
+            h={44}
+            cursor={"pointer"}
+            src="/logo.png"
+            alt="instagram logo"
           />
-          <Input
-            placeHolder={"Password"}
-            fontSize={14}
-            type="password"
-            value={inputs.password}
-            onChange={(e) => setInputs({ ...inputs, password: e.target.value })}
-          />
-          {isLogin ? (
-            <Input
-              placeHolder={"confirm password "}
-              fontSize={14}
-              type="password"
-              value={inputs.confirmPassword}
-              onChange={(e) =>
-                setInputs({ ...inputs, confirmPassword: e.target.value })
-              }
-            />
-          ) : null}
-          <Button
-            colorScheme=" blue"
-            w={"full"}
-            size={"sm"}
-            onClick={handleAuth}
-          >
-            {isLogin ? "login " : "signup"}
-          </Button>
+          {isLogin ? <Login/> : <Signup/>}
           <Flex
             alignItems={"center"}
             justifyContent={"center"}
@@ -82,16 +46,7 @@ function AuthForm() {
             </Text>
             <Box flex={2} h={"1px"} bg={"gray.400"} />
           </Flex>
-          <Flex
-            justifyContent={"center"}
-            alignItems={"center"}
-            cursor={"pointer"}
-          >
-            <Image w={5} src="/google.png" alt="google logo" />
-            <Text mx={1} color={"gray.400"}>
-              Signup with Google
-            </Text>
-          </Flex>
+         <GoogleAuth/>
         </VStack>
       </Box>
       <Box border={"1px solid gray"} borderRadius={4} padding={5}>
@@ -100,11 +55,7 @@ function AuthForm() {
           <Box mx={2} fontSize={14}>
             {isLogin ? "don't have an account?" : "already have an account?"}
           </Box>
-          <Box
-            onClick={() => setIsLogin(!isLogin)}
-            color={"blue.500"}
-            cursor={"pointer"}
-          >
+          <Box color={"blue.500"} cursor={"pointer"} onClick={()=>setIsLogin(!isLogin)}>
             {isLogin ? "signup" : "login"}
           </Box>
         </Flex>

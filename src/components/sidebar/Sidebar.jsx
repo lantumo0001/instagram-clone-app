@@ -1,7 +1,8 @@
 import { Link as RouterLink } from "react-router-dom";
-import { Box, Flex, Tooltip, Avatar, Link } from "@chakra-ui/react"; // Added Link
+import { Box, Flex, Tooltip, Avatar, Link , Button} from "@chakra-ui/react"; // Added Link
 import { AiFillHome } from "react-icons/ai";
 import { CiLogout } from "react-icons/ci";
+import useLogout from "../../hooks/useLogout";
 import {
   InstagramLogo,
   InstagramMobileLogo,
@@ -44,7 +45,7 @@ function Sidebar() {
       link: "/asaprogrammer",
     },
   ];
-
+  const [handleLogout, isLoggingout, error] = useLogout();
   return (
     <Box
       height={"100vh"}
@@ -88,6 +89,7 @@ function Sidebar() {
         </Link>
         <Flex direction={"column"} cursor="pointer" gap={5}>
           {sidebarItems.map((item, index) => (
+         
             <Tooltip
               key={index}
               label={item.text}
@@ -114,6 +116,7 @@ function Sidebar() {
             </Tooltip>
           ))}
         </Flex>
+        {/* logout  */}
         <Tooltip
           label={'Logout'}
           hasArrow
@@ -122,10 +125,8 @@ function Sidebar() {
           openDelay={500}
           display={{ base: "block", md: "none" }}
         >
-          <Link
-            display={"flex"}
-            to={'/auth'}
-            as={RouterLink}
+          <Flex
+            onClick = {()=>handleLogout}
             alignItems={"center"}
             gap={4}
             _hover={{ bg: "whiteAlpha.400" }}
@@ -135,8 +136,8 @@ function Sidebar() {
             mt={'auto'}
           >
              <CiLogout />
-            <Box display={{ base: "none", md: "block" }}>Logout</Box>
-          </Link>
+            <Button display={{ base: "none", md: "block" }} variant={'gost'} _hover={{bg:'transparent'}} isLoading={isLoggingout}>Logout</Button>
+          </Flex>
         </Tooltip>
       </Flex>
     </Box>
