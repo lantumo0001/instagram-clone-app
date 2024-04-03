@@ -45,7 +45,7 @@ function Sidebar() {
       link: "/asaprogrammer",
     },
   ];
-  const [handleLogout, isLoggingout, error] = useLogout();
+  const {handleLogout, isLoggingout, error} = useLogout();
   return (
     <Box
       height={"100vh"}
@@ -126,7 +126,7 @@ function Sidebar() {
           display={{ base: "block", md: "none" }}
         >
           <Flex
-            onClick = {()=>handleLogout}
+            onClick = {handleLogout}
             alignItems={"center"}
             gap={4}
             _hover={{ bg: "whiteAlpha.400" }}

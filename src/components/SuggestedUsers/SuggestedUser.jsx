@@ -1,10 +1,6 @@
 import {
   Box,
   Flex,
-  Text,
-  Heading,
-  Image,
-  Link,
   Avatar,
   VStack,
   Button,

@@ -68,7 +68,7 @@ function PostFooter({ isProfilePage, usernama }) {
                  placeholder={"add a comment..."}
                  fontSize={14}
                />
-               <InputRightElement width={4}>
+               <InputRightElement width={4} pr={4}>
                  <Button
                    fontWeight={600}
                    fontSize={14}

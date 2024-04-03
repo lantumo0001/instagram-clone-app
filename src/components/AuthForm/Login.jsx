@@ -12,6 +12,7 @@ function Login(){
   return (
     <>
       <Input
+        color = "white"
         placeholder={"Email"}
         fontSize={14}
         type="email"
