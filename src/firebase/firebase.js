@@ -1,15 +1,15 @@
 
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth"
+import { getAuth} from "firebase/auth"
 import {getFirestore} from "firebase/firestore"
 import {getStorage} from "firebase/storage"
 const firebaseConfig = {
-  apiKey: "AIzaSyCVciBTxis407SP1ZOSjmiQyuJlc5g9dnA",
-  authDomain: "instgram-clone-fc4ce.firebaseapp.com",
-  projectId: "instgram-clone-fc4ce",
-  storageBucket: "instgram-clone-fc4ce.appspot.com",
-  messagingSenderId: "712492518100",
-  appId: "1:712492518100:web:85a6b21f54d24795b3c941"
+  apiKey: process.env['VITE_FIREBASE_API_KEY'],
+  authDomain: process.env['VITE_FIREBASE_AUTH_DOMAIN'],
+  projectId: process.env['VITE_FIREBASE_PROJECT_ID'],
+  storageBucket: process.env['VITE_FIREBASE_STORAGE_BUCKET'],
+  messagingSenderId: process.env['VITE_FIREBASE_MESSAGING_SENDER_ID'] ,
+  appId: process.env['VITE_FIREBASE_APP_ID']
 };
 
 

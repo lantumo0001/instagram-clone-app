@@ -5,10 +5,11 @@ import { doc, getDoc } from "firebase/firestore";
 import useAuthStore from "../store/authStore";
 
 function useLogin() {
+  const loginUser = useAuthStore((state) => state.login);
   const showToast = useShowToast();
   const [signInWithEmailAndPassword, , loading, error] = useSignInWithEmailAndPassword(auth);
 
-  async function Login(inputs){
+  async function login(inputs){
       if (!inputs.email || !inputs.password) {
         return showToast("Error", "Please fill all the fields", "error");
       }
@@ -20,12 +21,13 @@ function useLogin() {
         const docSnap = await getDoc(docRef);
         localStorage.setItem("user", JSON.stringify(docSnap.data()));
         loginUser(docSnap.data());
+        loginUser(docSnap.data())
       }
     }catch(error){
       showToast("Error", error.message, "error");
     }
     
   }
-  
+  return { loading, error, login };
 }
 export default useLogin
