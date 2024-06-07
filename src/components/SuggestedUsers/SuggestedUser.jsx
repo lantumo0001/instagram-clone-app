@@ -3,17 +3,23 @@ import useFollowUser from "../../hooks/useFollowUser";
 import useAuthStore from "../../store/authStore";
 import { Link } from "react-router-dom";
 
-const SuggestedUser = ({ user}) => {
+const SuggestedUser = ({ user }) => {
   const { isFollowing, isUpdating, handleFollowUser } = useFollowUser(user.uid);
   const setUser = useAuthStore((state) => state.setUser); 
   const authUser = useAuthStore((state) => state.user);
+
   const onFollowUser = async () => {
     await handleFollowUser();
+
+    // Update the authUser's following list in the local state
+    const updatedFollowing = isFollowing
+      ? authUser.following.filter((followedUserId) => followedUserId !== user.uid)
+      : [...authUser.following, user.uid];
+
+    // Update the authUser in the state with the new following list
     setUser({
-      ...user,
-      followers: isFollowing
-        ? user.followers.filter((follower) => follower.uid !== authUser.uid)
-        : [...user.followers, authUser],
+      ...authUser,
+      following: updatedFollowing,
     });
   };
 

@@ -25,7 +25,7 @@ import useAuthStore from "../../store/authStore";
 import usePostStore from "../../store/postStore";
 import useUserProfileStore from "../../store/userProfileStore";
 import { useLocation } from "react-router-dom";
-import { addDoc, arrayUnion, collection, doc, updateDoc } from "firebase/firestore";
+import { addDoc, arrayUnion, collection, doc, updateDoc , query, where, getDocs,writeBatch} from "firebase/firestore";
 import { firestore, storage } from "../../firebase/firebase";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 
@@ -158,14 +158,37 @@ function useCreatePost() {
       if (userProfile.uid === authUser.uid) createPost({ ...newPost, id: postDocRef.id });
 
       if (pathname !== "/" && userProfile.uid === authUser.uid) addPost({ ...newPost, id: postDocRef.id });
+      await createNotifications(authUser, authUser.uid, postDocRef.id);
 
       showToast("Success", "Post created successfully", "success");
+      
     } catch (error) {
       showToast("Error", error.message, "error");
     } finally {
       setIsLoading(false);
     }
   };
+
+
+
+  const createNotifications = async (authUser, userId, postId) => {
+      const followersQuery = query(collection(firestore, "users"), where("following", "array-contains", userId));
+      const followersSnapshot = await getDocs(followersQuery);
+
+      const batch = writeBatch(firestore);
+      followersSnapshot.forEach((follower) => {
+          const notificationRef = doc(firestore, "notifications", follower.id);
+          batch.set(notificationRef, {
+              userId: follower.id,
+              message: `${authUser.username} has created a new post.`,
+              postId: postId,
+              timestamp: Date.now(),
+              read: false,
+          });
+      });
+      await batch.commit();
+  };
+
 
   return { isLoading, handleCreatePost };
 }
