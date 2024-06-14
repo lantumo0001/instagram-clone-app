@@ -1,6 +1,7 @@
 import { useAuthState } from "react-firebase-hooks/auth";
 import { firestore } from "../../firebase/firebase";
-import { Box, Flex, Tooltip, Badge } from "@chakra-ui/react";
+import { Box, Flex, Tooltip, Badge , Circle} from "@chakra-ui/react";
+
 import { NotificationsLogo } from "../../assets/constants";
 import useAuthStore from "../../store/authStore";
 import { useEffect, useState } from "react";
@@ -60,7 +61,9 @@ const Notifications = () => {
       >
         <NotificationsLogo />
         <Box display={{ base: "none", md: "block" }}>Notifications</Box>
-        <Badge colorScheme="blue" borderRadius={'full'} p={2}>{notifications.length}</Badge>
+        <Circle size='15px' bg='white' color='black'>
+          {notifications.length}
+        </Circle>
       </Flex>
     </Tooltip>
   );
