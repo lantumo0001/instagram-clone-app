@@ -1,3 +1,4 @@
+import { useAuthState } from "react-firebase-hooks/auth";
 import { firestore } from "../../firebase/firebase";
 import { Box, Flex, Tooltip, Badge } from "@chakra-ui/react";
 import { NotificationsLogo } from "../../assets/constants";
@@ -5,14 +6,17 @@ import useAuthStore from "../../store/authStore";
 import { useEffect, useState } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import useShowToast from "../../hooks/useShowToast";
+import { auth } from '../../firebase/firebase';
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
-  const authUser = useAuthStore((state) => state.user);
+  const [authUser] = useAuthState(auth);
+
   const showToast = useShowToast();
-  console.log(authUser.uid)
-  
+
   useEffect(() => {
+    if (!authUser.uid) return;
+
     const fetchNotifications = async () => {
       try {
         const notificationsQuery = query(
@@ -26,13 +30,15 @@ const Notifications = () => {
         }));
         setNotifications(notificationsData);
       } catch (error) {
-        showToast("error", "Error fetching notifications", "error");
+        showToast("error", "Error fetching notifications: " + error.message, "error");
         console.error("Error fetching notifications:", error);
       }
     };
 
     fetchNotifications();
-  }, []);
+  }, [authUser.uid, showToast]);
+
+  if (!authUser.uid) return null;
 
   return (
     <Tooltip
@@ -54,7 +60,7 @@ const Notifications = () => {
       >
         <NotificationsLogo />
         <Box display={{ base: "none", md: "block" }}>Notifications</Box>
-        <Badge colorScheme="blue">{notifications.length}</Badge>
+        <Badge colorScheme="blue" borderRadius={'full'} p={2}>{notifications.length}</Badge>
       </Flex>
     </Tooltip>
   );

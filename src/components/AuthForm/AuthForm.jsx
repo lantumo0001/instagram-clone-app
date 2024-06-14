@@ -47,6 +47,7 @@ function AuthForm() {
             <Box flex={2} h={"1px"} bg={"gray.400"} />
           </Flex>
          <GoogleAuth prefix={isLogin ? 'Login' : 'Signup'}/>
+          <Flex w='full' justifyContent="space-between" fontSize='sm'><Text>demo : josh@gmail.com</Text> <Text fontSize='sm'>password : 123456</Text></Flex>
         </VStack>
       </Box>
       <Box border={"1px solid gray"} borderRadius={4} padding={5}>
