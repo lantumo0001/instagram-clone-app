@@ -37,7 +37,7 @@ const Notifications = () => {
     };
 
     fetchNotifications();
-  }, [authUser.uid, showToast]);
+  }, [authUser?.uid, showToast]);
 
   if (!authUser.uid) return null;
 
